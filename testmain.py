@@ -18,8 +18,8 @@ mapa = gpd.read_file(response.text, driver='GeoJSON')
 
 # Página principal
 def main():
-    github_url = "https://github.com/wichoiscoding/"
-    badge_url = "https://img.shields.io/badge/-wichoiscoding-black?style=flat-square&logo=github"
+    github_url = "https://github.com/Hellojustjoe/"
+    badge_url = "https://img.shields.io/badge/-hellojustjoe-black?style=flat-square&logo=github"
 
     st.markdown(f"""
         <div style="display: flex; justify-content: center; align-items: center;">
