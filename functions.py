@@ -178,6 +178,9 @@ def show_predicted_incidents(alcaldia_seleccionada):
 
     params = {'name_alcaldia': alcaldia_seleccionada}
     response = requests.get(API_HOST_LOCAL + '/model-data', params=params).json()
+    print("-----------")
+    print("RESPONSE : ", response)
+    print("-----------")
     model_data = pd.DataFrame.from_dict(response)
 
 
