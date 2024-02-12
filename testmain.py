@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+load_dotenv()
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
@@ -7,12 +9,15 @@ import requests
 
 from functions import show_dynamic_plot, show_historic_tvsf, show_predicted_incidents, get_feature_info, show_aggregated_predictions
 
-API_HOST_LOCAL = os.getenv('SERVICE_URL')
+print("SERVICE_URL:", os.getenv("SERVICE_URL"))
+
+API_HOST_LOCAL = os.getenv('SERVICE_URL', 'http://localhost:8000')
 st.set_page_config(layout="wide")
 
 
 # Get main map
 response = requests.get(API_HOST_LOCAL + '/main-map')
+
 mapa = gpd.read_file(response.text, driver='GeoJSON')
 
 
