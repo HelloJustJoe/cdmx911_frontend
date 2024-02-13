@@ -1,5 +1,5 @@
-from dotenv import load_dotenv
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 import streamlit as st
 import pandas as pd
 import geopandas as gpd
@@ -9,7 +9,7 @@ import requests
 
 from functions import show_dynamic_plot, show_historic_tvsf, show_predicted_incidents, get_feature_info, show_aggregated_predictions
 
-print("SERVICE_URL:", os.getenv("SERVICE_URL"))
+#print("SERVICE_URL:", os.getenv("SERVICE_URL"))
 
 #API_HOST_LOCAL = os.getenv('SERVICE_URL', 'http://localhost:8000')
 FASTAPI_URL = 'https://cdmx911-api-osg4ztthva-uc.a.run.app'
