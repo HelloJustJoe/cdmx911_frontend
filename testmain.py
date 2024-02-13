@@ -11,12 +11,17 @@ from functions import show_dynamic_plot, show_historic_tvsf, show_predicted_inci
 
 print("SERVICE_URL:", os.getenv("SERVICE_URL"))
 
-API_HOST_LOCAL = os.getenv('SERVICE_URL', 'http://localhost:8000')
+#API_HOST_LOCAL = os.getenv('SERVICE_URL', 'http://localhost:8000')
+FASTAPI_URL = 'https://cdmx911-api-osg4ztthva-uc.a.run.app'
+
+
+
 st.set_page_config(layout="wide")
 
 
 # Get main map
-response = requests.get(API_HOST_LOCAL + '/main-map')
+#response = requests.get(API_HOST_LOCAL + '/main-map')
+response = requests.get(FASTAPI_URL + '/main-map')
 
 mapa = gpd.read_file(response.text, driver='GeoJSON')
 
@@ -39,7 +44,7 @@ def main():
     #st.markdown('### Obten informacion detallada acerca de los incidentes reportados al 911')
 
     # name-alcaldia api call
-    response = requests.get(API_HOST_LOCAL + '/name-alcaldia')
+    response = requests.get(FASTAPI_URL + '/name-alcaldia')
     names_alcaldias = response.json()['alcaldias']
 
     # Select box alcaldia
@@ -47,7 +52,7 @@ def main():
     col1, col2 = st.columns(2)
     # Get alcaldia lat & lon
     params = {'name_alcaldia': alcaldia_seleccionada}
-    response = requests.get(API_HOST_LOCAL + '/latlon', params=params).json()
+    response = requests.get(FASTAPI_URL + '/latlon', params=params).json()
     latitud, longitud = response['Latitud'], response['Longitud']
 
 
