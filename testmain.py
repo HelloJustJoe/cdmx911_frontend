@@ -64,6 +64,24 @@ def main():
 
     # name-alcaldia api call
     response = requests.get(FASTAPI_URL + '/name-alcaldia')
+    # Check if the response status code indicates success
+    if response.status_code == 200:
+        try:
+            names_alcaldias = response.json()['alcaldias']
+        except json.JSONDecodeError:
+            st.error("Failed to decode JSON from response. The service might be down or returning an unexpected format.")
+            # Log the first 500 characters of the response for debugging (consider logging more or less depending on your needs)
+            st.text(response.text[:500])
+            # Set names_alcaldias to None or an empty list to handle this error gracefully in your app
+            names_alcaldias = None
+    else:
+        st.error(f"Error fetching data: HTTP {response.status_code}")
+        # Optionally log the response body for debugging
+        st.text(response.text[:500])
+        # Set names_alcaldias to None or an empty list to handle this error gracefully in your app
+        names_alcaldias = None
+
+
     names_alcaldias = response.json()['alcaldias']
 
     # Select box alcaldia
