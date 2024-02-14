@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import pydeck as pdk
+import json
 import os
 import requests
 
@@ -15,15 +16,16 @@ from functions import show_dynamic_plot, show_historic_tvsf, show_predicted_inci
 FASTAPI_URL = 'https://cdmx911-api-osg4ztthva-uc.a.run.app'
 
 
-
 st.set_page_config(layout="wide")
 
 
 # Get main map
-#response = requests.get(API_HOST_LOCAL + '/main-map')
+# response = requests.get(API_HOST_LOCAL + '/main-map')
 response = requests.get(FASTAPI_URL + '/main-map')
 
-mapa = gpd.read_file(response.text, driver='GeoJSON')
+#mapa = gpd.read_file(response.text, driver='GeoJSON')
+geojson_dict = json.loads(response.text)
+mapa = gpd.GeoDataFrame.from_features(geojson_dict["features"])
 
 
 # Página principal
