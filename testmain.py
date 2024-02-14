@@ -18,14 +18,31 @@ FASTAPI_URL = 'https://cdmx911-api-osg4ztthva-uc.a.run.app'
 
 st.set_page_config(layout="wide")
 
+def fetch_geojson(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        try:
+            geojson_dict = json.loads(response.text)
+            return gpd.GeoDataFrame.from_features(geojson_dict["features"])
+        except json.JSONDecodeError as e:
+            st.error(f"Error decoding JSON: {e}")
+            st.text(response.text[:500])  # Show first 500 characters of the response for debugging
+            return None
+    else:
+        st.error(f"Failed to fetch data: HTTP {response.status_code}")
+        st.text(response.text[:500])  # Show first 500 characters of the response for debugging
+        return None
+
+mapa = fetch_geojson(f"{FASTAPI_URL}/main-map")
+
 
 # Get main map
 # response = requests.get(API_HOST_LOCAL + '/main-map')
-response = requests.get(FASTAPI_URL + '/main-map')
+#response = requests.get(FASTAPI_URL + '/main-map')
 
 #mapa = gpd.read_file(response.text, driver='GeoJSON')
-geojson_dict = json.loads(response.text)
-mapa = gpd.GeoDataFrame.from_features(geojson_dict["features"])
+#geojson_dict = json.loads(response.text)
+#mapa = gpd.GeoDataFrame.from_features(geojson_dict["features"])
 
 
 # Página principal
