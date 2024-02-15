@@ -98,6 +98,7 @@ def get_feature_info(alcaldia_name=None):
         return alcaldias_info.get(alcaldia_name, {'Population': 'Unknown', 'Area': 'Unknown', 'Description': 'No data available.'})
 
 API_HOST_LOCAL = os.getenv('SERVICE_URL')
+FASTAPI_URL = 'https://cdmx911-api-osg4ztthva-uc.a.run.app'
 
 
 def show_dynamic_plot(name_alcaldia):
