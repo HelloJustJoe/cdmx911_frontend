@@ -179,9 +179,6 @@ def show_predicted_incidents(alcaldia_seleccionada):
 
     params = {'name_alcaldia': alcaldia_seleccionada}
     response = requests.get(FASTAPI_URL + '/model-data', params=params).json()
-    print("-----------")
-    print("RESPONSE : ", response)
-    print("-----------")
     model_data = pd.DataFrame.from_dict(response)
 
 
@@ -200,8 +197,12 @@ def show_predicted_incidents(alcaldia_seleccionada):
     area_chart.add_trace(go.Scatter(x=model_data.index, y=model_data['data'], fill='tozeroy', name='Incident Area', line=dict(color='cyan', width=2)))
     area_chart.update_layout(title='Area Chart of Predicted Incidents', xaxis_title='Month', yaxis_title='Number of Incidents', template='seaborn')
 
-    print("modeldata : ", type(model_data), model_data)
-    print("pop variable : ", type(population), population)
+
+    #print("modeldata : ", type(model_data), model_data)
+    #print("pop variable : ", type(population), population)
+    model_data['data'] = pd.to_numeric(model_data['data'], errors='coerce').fillna(0)
+    population = pd.to_numeric(population, errors='coerce').fillna(1)  # Assuming population cannot be 0
+
     model_data['crashes_per_capita'] = model_data['data'] / population
 
 
