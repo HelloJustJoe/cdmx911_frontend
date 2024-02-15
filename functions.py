@@ -105,7 +105,7 @@ def show_dynamic_plot(name_alcaldia):
 
     # Get dynamic data
     params = {'name_alcaldia': name_alcaldia}
-    response = requests.get(API_HOST_LOCAL + '/dynamic-data', params=params).json()
+    response = requests.get(FASTAPI_URL + '/dynamic-data', params=params).json()
     data_grouped = pd.DataFrame(response['data'])
     data_grouped = data_grouped[data_grouped['year'] != 2013]
 
@@ -178,7 +178,7 @@ def show_predicted_incidents(alcaldia_seleccionada):
 
 
     params = {'name_alcaldia': alcaldia_seleccionada}
-    response = requests.get(API_HOST_LOCAL + '/model-data', params=params).json()
+    response = requests.get(FASTAPI_URL + '/model-data', params=params).json()
     print("-----------")
     print("RESPONSE : ", response)
     print("-----------")
@@ -227,7 +227,7 @@ def show_aggregated_predictions():
 
     for alcaldia in alcaldias:
         params = {'name_alcaldia': alcaldia.upper()}
-        response = requests.get(API_HOST_LOCAL + '/model-data', params=params)
+        response = requests.get(FASTAPI_URL + '/model-data', params=params)
         if response.status_code == 200:
             model_data = pd.DataFrame.from_dict(response.json())
             total = model_data['data'].sum()
