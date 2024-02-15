@@ -200,8 +200,6 @@ def show_predicted_incidents(alcaldia_seleccionada):
 
     #print("modeldata : ", type(model_data), model_data)
     #print("pop variable : ", type(population), population)
-    model_data['data'] = pd.to_numeric(model_data['data'], errors='coerce').fillna(0)
-    population = pd.to_numeric(population, errors='coerce').fillna(1)  # Assuming population cannot be 0
 
     model_data['crashes_per_capita'] = model_data['data'] / population
 
