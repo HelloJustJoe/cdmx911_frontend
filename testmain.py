@@ -54,7 +54,7 @@ def main():
         <div style="display: flex; justify-content: center; align-items: center;">
             <h1 style="margin-right: 10px;">Consola de datos 911 CDMX</h1>
             <a href="{github_url}">
-                <img src="{badge_url}" alt="GitHub Badge" style="height: 40px;">
+                <img src="{badge_url}" alt="GitHub Badge" style="height: 40px; border-radius: 10px;">
             </a>
         </div>
         """, unsafe_allow_html=True)
